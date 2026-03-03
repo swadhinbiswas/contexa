@@ -1,0 +1,22 @@
+[package]
+name = "contexa"
+version = "0.1.1"
+edition = "2021"
+description = "Git-inspired context management for LLM agents -- COMMIT, BRANCH, MERGE, and CONTEXT over versioned memory (arXiv:2508.00031)"
+license = "MIT"
+authors = ["Swadhin Biswas <swadhinbiswas.cse@gmail.com>"]
+keywords = ["llm", "agent", "context-management", "git", "memory"]
+categories = ["data-structures", "filesystem"]
+readme = "README.md"
+repository = "https://github.com/swadhinbiswas/contexa"
+homepage = "https://github.com/swadhinbiswas/contexa"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_yaml = "0.9"
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1", features = ["v4"] }
+thiserror = "1"
+
+[dev-dependencies]
+tempfile = "3"
