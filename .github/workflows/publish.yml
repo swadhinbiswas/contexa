@@ -270,6 +270,13 @@ jobs:
         id: version
         run: echo "version=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
 
+      - name: Create Go subdirectory tag
+        run: |
+          TAG="${{ steps.version.outputs.version }}"
+          GO_TAG="GO/$TAG"
+          git tag "$GO_TAG" || true
+          git push origin "$GO_TAG" || true
+
       - name: Generate release notes
         id: notes
         run: |
@@ -287,7 +294,7 @@ jobs:
             echo "| Python   | \`pip install contexa\` |"
             echo "| JS/TS    | \`npm install contexa\` |"
             echo "| Rust     | \`cargo add contexa\` |"
-            echo "| Go       | \`go get github.com/swadhinbiswas/contexa/GO/cortexa@$TAG\` |"
+            echo "| Go       | \`go get github.com/swadhinbiswas/contexa/GO/cortexa@GO/$TAG\` |"
             echo "| Lua      | \`luarocks install contexa\` |"
             echo "| Elixir   | \`{:contexa, \"~> 0.1.1\"}\` in mix.exs |"
             echo "| Zig      | Add dependency via \`build.zig.zon\` (see README) |"

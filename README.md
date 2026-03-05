@@ -5,7 +5,7 @@
 [![PyPI](https://img.shields.io/pypi/v/contexa.svg)](https://pypi.org/project/contexa/)
 [![npm](https://img.shields.io/npm/v/contexa.svg)](https://www.npmjs.com/package/contexa)
 [![crates.io](https://img.shields.io/crates/v/contexa.svg)](https://crates.io/crates/contexa)
-[![Go Reference](https://pkg.go.dev/badge/github.com/swadhinbiswas/contexa.svg)](https://pkg.go.dev/github.com/swadhinbiswas/contexa)
+[![Go Reference](https://pkg.go.dev/badge/github.com/swadhinbiswas/contexa/GO.svg)](https://pkg.go.dev/github.com/swadhinbiswas/contexa/GO)
 [![Hex.pm](https://img.shields.io/hexpm/v/contexa.svg)](https://hex.pm/packages/contexa)
 
 **Git-inspired context management for LLM agents.** COMMIT, BRANCH, MERGE, and CONTEXT operations over a persistent versioned memory workspace.
@@ -53,7 +53,7 @@ The paper shows **K=1 performs best** in most benchmarks -- agents do better wit
 | Python | [`contexa`](https://pypi.org/project/contexa/) | `pip install contexa` |
 | TypeScript/JS | [`contexa`](https://www.npmjs.com/package/contexa) | `npm install contexa` |
 | Rust | [`contexa`](https://crates.io/crates/contexa) | `cargo add contexa` |
-| Go | [`contexa`](https://pkg.go.dev/github.com/swadhinbiswas/contexa) | `go get github.com/swadhinbiswas/contexa/cortexa` |
+| Go | [`contexa`](https://pkg.go.dev/github.com/swadhinbiswas/contexa/GO) | `go get github.com/swadhinbiswas/contexa/GO/cortexa` |
 | Lua | [`contexa`](https://luarocks.org/modules/swadhinbiswas/contexa) | `luarocks install contexa` |
 | Elixir | [`contexa`](https://hex.pm/packages/contexa) | `{:contexa, "~> 0.1.1"}` in mix.exs |
 | Zig | `contexa` | See [Zig README](ZIG/README.md) |
@@ -115,7 +115,7 @@ println!("{}", ctx.summary());
 ### Go
 
 ```go
-import "github.com/swadhinbiswas/contexa/cortexa"
+import "github.com/swadhinbiswas/contexa/GO/cortexa"
 
 ws := cortexa.New("/path/to/project")
 ws.Init("Build a REST API")
@@ -211,7 +211,7 @@ contexa/
   PYTHON/        # PyPI: contexa
   JS/            # npm: contexa
   RUST/          # crates.io: contexa
-  GO/            # pkg.go.dev: github.com/swadhinbiswas/contexa
+  GO/            # pkg.go.dev: github.com/swadhinbiswas/contexa/GO
   ZIG/           # Zig package: contexa
   LUA/           # LuaRocks: contexa
   ELIXIR/        # Hex.pm: contexa
@@ -267,7 +267,7 @@ MIT License. See [LICENSE](LICENSE) for details.
 - [Python (PyPI)](https://pypi.org/project/contexa/)
 - [TypeScript (npm)](https://www.npmjs.com/package/contexa)
 - [Rust (crates.io)](https://crates.io/crates/contexa)
-- [Go (pkg.go.dev)](https://pkg.go.dev/github.com/swadhinbiswas/contexa)
+- [Go (pkg.go.dev)](https://pkg.go.dev/github.com/swadhinbiswas/contexa/GO)
 - [Lua (LuaRocks)](https://luarocks.org/modules/swadhinbiswas/contexa)
 - [Elixir (Hex.pm)](https://hex.pm/packages/contexa)
 - [Author: Swadhin Biswas](https://github.com/swadhinbiswas)

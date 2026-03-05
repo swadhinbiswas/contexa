@@ -1,6 +1,6 @@
 # contexa
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/swadhinbiswas/contexa.svg)](https://pkg.go.dev/github.com/swadhinbiswas/contexa)
+[![Go Reference](https://pkg.go.dev/badge/github.com/swadhinbiswas/contexa/GO.svg)](https://pkg.go.dev/github.com/swadhinbiswas/contexa/GO)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![GitHub](https://img.shields.io/badge/GitHub-swadhinbiswas%2Fcontexa-black.svg?logo=github)](https://github.com/swadhinbiswas/contexa)
 
@@ -15,7 +15,7 @@ Based on: [arXiv:2508.00031](https://arxiv.org/abs/2508.00031) -- *"Git Context 
 ## Installation
 
 ```bash
-go get github.com/swadhinbiswas/contexa/cortexa
+go get github.com/swadhinbiswas/contexa/GO/cortexa
 ```
 
 ---
@@ -27,7 +27,7 @@ package main
 
 import (
     "fmt"
-    "github.com/swadhinbiswas/contexa/cortexa"
+    "github.com/swadhinbiswas/contexa/GO/cortexa"
 )
 
 func main() {
@@ -213,6 +213,6 @@ MIT License. See [LICENSE](LICENSE) for details.
 ## Links
 
 - [GitHub Repository](https://github.com/swadhinbiswas/contexa)
-- [pkg.go.dev](https://pkg.go.dev/github.com/swadhinbiswas/contexa)
+- [pkg.go.dev](https://pkg.go.dev/github.com/swadhinbiswas/contexa/GO)
 - [Original Paper](https://arxiv.org/abs/2508.00031)
 - [Author: Swadhin Biswas](https://github.com/swadhinbiswas)
