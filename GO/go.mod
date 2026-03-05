@@ -1,4 +1,4 @@
-module github.com/swadhinbiswas/contexa/GO
+module github.com/swadhinbiswas/Cortexa/GO
 
 go 1.21
 

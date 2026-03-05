@@ -1,4 +1,4 @@
-// Package cortexa implements contexa — Git-inspired context management
+// Package cortexa implements cortexa — Git-inspired context management
 // for LLM agents. COMMIT, BRANCH, MERGE, and CONTEXT over versioned memory.
 //
 // Paper: "Git Context Controller: Manage the Context of LLM-based Agents like Git"
@@ -13,6 +13,36 @@ import (
 	"strings"
 )
 
+// Sanitize escapes separator sequences in user-provided content.
+func Sanitize(text string) string {
+	return strings.Replace(text, "\n---\n", "\n\\---\n", -1)
+}
+
+// Desanitize reverses the escaping applied by Sanitize.
+func Desanitize(text string) string {
+	return strings.Replace(text, "\n\\---\n", "\n---\n", -1)
+}
+
+// SplitBlocks splits markdown text on the "---\n" separator while
+// respecting escaped separators ("\---\n" produced by Sanitize).
+// After splitting, escaped separators are left in place; callers
+// should use Desanitize on individual field values.
+func SplitBlocks(text string) []string {
+	raw := strings.Split(text, "---\n")
+	var blocks []string
+	for i := 0; i < len(raw); i++ {
+		block := raw[i]
+		// If block ends with '\', the "---\n" was actually an escaped
+		// separator — rejoin with the next fragment.
+		for strings.HasSuffix(block, "\\") && i+1 < len(raw) {
+			i++
+			block = block + "---\n" + raw[i]
+		}
+		blocks = append(blocks, block)
+	}
+	return blocks
+}
+
 // OTARecord represents a single Observation–Thought–Action cycle logged to log.md.
 type OTARecord struct {
 	Step        int    `yaml:"step"`
@@ -26,7 +56,7 @@ type OTARecord struct {
 func (r OTARecord) ToMarkdown() string {
 	return fmt.Sprintf(
 		"### Step %d — %s\n**Observation:** %s\n\n**Thought:** %s\n\n**Action:** %s\n\n---\n",
-		r.Step, r.Timestamp, r.Observation, r.Thought, r.Action,
+		r.Step, r.Timestamp, Sanitize(r.Observation), Sanitize(r.Thought), Sanitize(r.Action),
 	)
 }
 
@@ -47,8 +77,8 @@ func (c CommitRecord) ToMarkdown() string {
 		"## Commit `%s`\n**Timestamp:** %s\n\n**Branch Purpose:** %s\n\n"+
 			"**Previous Progress Summary:** %s\n\n"+
 			"**This Commit's Contribution:** %s\n\n---\n",
-		c.CommitID, c.Timestamp, c.BranchPurpose,
-		c.PreviousProgressSummary, c.ThisCommitContribution,
+		c.CommitID, c.Timestamp, Sanitize(c.BranchPurpose),
+		Sanitize(c.PreviousProgressSummary), Sanitize(c.ThisCommitContribution),
 	)
 }
 
