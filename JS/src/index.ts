@@ -1,5 +1,5 @@
 /**
- * contexa — Git-inspired context management for LLM agents.
+ * cortexa — Git-inspired context management for LLM agents.
  * COMMIT, BRANCH, MERGE, and CONTEXT over versioned memory.
  *
  * Paper: "Git Context Controller: Manage the Context of LLM-based Agents like Git"

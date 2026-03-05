@@ -1,13 +1,13 @@
-# contexa
+# cortexa
 
-[![npm version](https://img.shields.io/npm/v/contexa.svg)](https://www.npmjs.com/package/contexa)
+[![npm version](https://img.shields.io/npm/v/cortexa.svg)](https://www.npmjs.com/package/cortexa)
 [![Node.js 18+](https://img.shields.io/badge/node-18%2B-blue.svg)](https://nodejs.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![GitHub](https://img.shields.io/badge/GitHub-swadhinbiswas%2Fcontexa-black.svg?logo=github)](https://github.com/swadhinbiswas/contexa)
+[![GitHub](https://img.shields.io/badge/GitHub-swadhinbiswas%2FCortexa-black.svg?logo=github)](https://github.com/swadhinbiswas/Cortexa)
 
 **Git-inspired context management for LLM agents.** COMMIT, BRANCH, MERGE, and CONTEXT operations over a persistent versioned memory workspace.
 
-TypeScript/JavaScript implementation of the **contexa** framework.
+TypeScript/JavaScript implementation of the **cortexa** framework.
 
 Based on: [arXiv:2508.00031](https://arxiv.org/abs/2508.00031) -- *"Git Context Controller: Manage the Context of LLM-based Agents like Git"* (Junde Wu et al., 2025)
 
@@ -16,14 +16,14 @@ Based on: [arXiv:2508.00031](https://arxiv.org/abs/2508.00031) -- *"Git Context 
 ## Installation
 
 ```bash
-npm install contexa
+npm install cortexa
 ```
 
 Or with yarn/pnpm:
 
 ```bash
-yarn add contexa
-pnpm add contexa
+yarn add cortexa
+pnpm add cortexa
 ```
 
 ---
@@ -31,7 +31,7 @@ pnpm add contexa
 ## Quick Start
 
 ```typescript
-import { GCCWorkspace } from "contexa";
+import { GCCWorkspace } from "cortexa";
 
 // 1. Initialize a workspace
 const ws = new GCCWorkspace("/path/to/project");
@@ -216,8 +216,8 @@ All data is stored as **human-readable Markdown and YAML**.
 ## Running Tests
 
 ```bash
-git clone https://github.com/swadhinbiswas/contexa.git
-cd contexa/JS
+git clone https://github.com/swadhinbiswas/Cortexa.git
+cd cortexa/JS
 npm install
 npm test
 ```
@@ -261,7 +261,7 @@ MIT License. See [LICENSE](LICENSE) for details.
 
 ## Links
 
-- [GitHub Repository](https://github.com/swadhinbiswas/contexa)
-- [npm Package](https://www.npmjs.com/package/contexa)
+- [GitHub Repository](https://github.com/swadhinbiswas/Cortexa)
+- [npm Package](https://www.npmjs.com/package/cortexa)
 - [Original Paper](https://arxiv.org/abs/2508.00031)
 - [Author: Swadhin Biswas](https://github.com/swadhinbiswas)

@@ -1,5 +1,5 @@
 {
-  "name": "contexa",
+  "name": "cortexa",
   "version": "0.1.1",
   "description": "Git-inspired context management for LLM agents -- COMMIT, BRANCH, MERGE, and CONTEXT over versioned memory (arXiv:2508.00031)",
   "author": "Swadhin Biswas <swadhinbiswas.cse@gmail.com>",
@@ -23,15 +23,15 @@
     "test": "tsx --test test.ts",
     "lint": "eslint src"
   },
-  "keywords": ["llm", "agent", "context-management", "git", "memory", "gcc", "contexa"],
+  "keywords": ["llm", "agent", "context-management", "git", "memory", "gcc", "cortexa"],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/swadhinbiswas/contexa"
+    "url": "https://github.com/swadhinbiswas/Cortexa"
   },
-  "homepage": "https://github.com/swadhinbiswas/contexa",
+  "homepage": "https://github.com/swadhinbiswas/Cortexa",
   "bugs": {
-    "url": "https://github.com/swadhinbiswas/contexa/issues"
+    "url": "https://github.com/swadhinbiswas/Cortexa/issues"
   },
   "dependencies": {
     "js-yaml": "^4.1.0"
