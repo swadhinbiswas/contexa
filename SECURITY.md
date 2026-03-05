@@ -9,7 +9,7 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in cortexa, please report it responsibly by emailing **swadhinbiswas.cse@gmail.com** with the following information:
+If you discover a security vulnerability in contexa, please report it responsibly by emailing **swadhinbiswas.cse@gmail.com** with the following information:
 
 - Description of the vulnerability
 - Steps to reproduce
@@ -26,7 +26,7 @@ If you discover a security vulnerability in cortexa, please report it responsibl
 
 ## Scope
 
-This security policy covers all 7 language implementations of cortexa:
+This security policy covers all 7 language implementations of contexa:
 
 - Python
 - JavaScript

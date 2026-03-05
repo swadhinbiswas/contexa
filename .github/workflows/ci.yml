@@ -117,7 +117,7 @@ jobs:
         run: go build ./...
 
       - name: Run tests
-        run: go test -v ./cortexa/
+        run: go test -v ./contexa/
 
   # ── Zig ─────────────────────────────────────────────────────────────
   test-zig:
