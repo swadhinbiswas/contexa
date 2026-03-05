@@ -7,7 +7,7 @@ defmodule Contexa.Workspace do
   """
 
   alias Contexa.Models
-  alias Contexa.Models.{OTARecord, CommitRecord, BranchMetadata, ContextResult}
+  alias Contexa.Models.{OTARecord, CommitRecord, ContextResult}
 
   @main_branch "main"
   @gcc_dir ".GCC"
