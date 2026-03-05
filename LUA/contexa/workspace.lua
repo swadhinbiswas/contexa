@@ -27,11 +27,15 @@ local function dir_exists(path)
         local attr = lfs.attributes(path)
         return attr and attr.mode == "directory"
     end
-    -- fallback: try to open directory
+    -- fallback: use os.rename (works on most POSIX systems)
     local ok, _, code = os.rename(path, path)
     if ok then return true end
-    -- code 13 = permission denied (exists but can't rename)
-    return code == 13
+    if code == 13 then return true end
+    -- second fallback: try test -d
+    local ret = os.execute('test -d "' .. path .. '"')
+    -- Lua 5.1 returns number, 5.2+ returns boolean
+    if ret == true or ret == 0 then return true end
+    return false
 end
 
 local function file_exists(path)
@@ -42,18 +46,30 @@ end
 
 local function mkdir_p(path)
     if lfs_ok then
-        -- split and create each segment
-        local accum = ""
+        -- split and create each segment, preserving leading /
+        local accum = path:sub(1, 1) == "/" and "/" or ""
         for seg in path:gmatch("[^/]+") do
-            accum = accum == "" and seg or (accum .. "/" .. seg)
+            accum = accum == "" and seg
+                or accum == "/" and ("/" .. seg)
+                or (accum .. "/" .. seg)
             if not dir_exists(accum) then
                 lfs.mkdir(accum)
             end
         end
         return
     end
-    -- fallback: use os.execute
+    -- fallback: rely on system mkdir -p
     os.execute('mkdir -p "' .. path .. '"')
+    -- verify, retry with segment-by-segment if needed
+    if not dir_exists(path) then
+        local accum = path:sub(1, 1) == "/" and "/" or ""
+        for seg in path:gmatch("[^/]+") do
+            accum = accum == "" and seg
+                or accum == "/" and ("/" .. seg)
+                or (accum .. "/" .. seg)
+            os.execute('mkdir "' .. accum .. '" 2>/dev/null')
+        end
+    end
 end
 
 local function read_file(path)
