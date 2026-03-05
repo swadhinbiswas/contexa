@@ -178,7 +178,7 @@ export class GCCWorkspace {
     // simplest portable approach: open with 'wx+' in a retry loop.
     // On success we hold the exclusive create lock; on EEXIST we
     // wait briefly and retry.  This is a cooperative lock: all
-    // cortexa JS instances follow the same protocol.
+    // contexa JS instances follow the same protocol.
     const maxWait = 10_000; // 10 seconds
     const interval = 50;    // ms between retries
     let waited = 0;
