@@ -1,11 +1,11 @@
-# contexa
+# cortexa
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![GitHub](https://img.shields.io/badge/GitHub-swadhinbiswas%2Fcontexa-black.svg?logo=github)](https://github.com/swadhinbiswas/contexa)
+[![GitHub](https://img.shields.io/badge/GitHub-swadhinbiswas%2FCortexa-black.svg?logo=github)](https://github.com/swadhinbiswas/Cortexa)
 
 **Git-inspired context management for LLM agents.** COMMIT, BRANCH, MERGE, and CONTEXT operations over a persistent versioned memory workspace.
 
-Zig implementation of the **contexa** framework.
+Zig implementation of the **cortexa** framework.
 
 Based on: [arXiv:2508.00031](https://arxiv.org/abs/2508.00031) -- *"Git Context Controller: Manage the Context of LLM-based Agents like Git"* (Junde Wu et al., 2025)
 
@@ -19,8 +19,8 @@ Add to your `build.zig.zon`:
 
 ```zig
 .dependencies = .{
-    .contexa = .{
-        .url = "https://github.com/swadhinbiswas/contexa/archive/refs/tags/v0.1.1.tar.gz",
+    .cortexa = .{
+        .url = "https://github.com/swadhinbiswas/Cortexa/archive/refs/tags/v0.1.1.tar.gz",
         .hash = "...", // zig build will tell you the correct hash
     },
 },
@@ -29,11 +29,11 @@ Add to your `build.zig.zon`:
 Then in your `build.zig`:
 
 ```zig
-const contexa = b.dependency("contexa", .{
+const cortexa = b.dependency("cortexa", .{
     .target = target,
     .optimize = optimize,
 });
-exe.root_module.addImport("contexa", contexa.module("contexa"));
+exe.root_module.addImport("cortexa", cortexa.module("cortexa"));
 ```
 
 ---
@@ -42,7 +42,7 @@ exe.root_module.addImport("contexa", contexa.module("contexa"));
 
 ```zig
 const std = @import("std");
-const contexa = @import("contexa");
+const cortexa = @import("cortexa");
 
 pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
@@ -50,7 +50,7 @@ pub fn main() !void {
     const allocator = gpa.allocator();
 
     // 1. Initialize a workspace
-    var ws = contexa.Workspace.init(allocator, "/path/to/project");
+    var ws = cortexa.Workspace.init(allocator, "/path/to/project");
     try ws.create("Build a REST API service with user auth");
 
     // 2. Agent logs its reasoning as it works
@@ -186,6 +186,6 @@ MIT License. See [LICENSE](LICENSE) for details.
 
 ## Links
 
-- [GitHub Repository](https://github.com/swadhinbiswas/contexa)
+- [GitHub Repository](https://github.com/swadhinbiswas/Cortexa)
 - [Original Paper](https://arxiv.org/abs/2508.00031)
 - [Author: Swadhin Biswas](https://github.com/swadhinbiswas)
