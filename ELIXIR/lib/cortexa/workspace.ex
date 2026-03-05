@@ -11,7 +11,6 @@ defmodule Cortexa.Workspace do
 
   @main_branch "main"
   @gcc_dir ".GCC"
-  @lock_timeout 10_000  # milliseconds
 
   defstruct [:root, :gcc_dir, current_branch: "main"]
 
@@ -46,18 +45,18 @@ defmodule Cortexa.Workspace do
     lock_path = Path.join(ws.gcc_dir, ".lock")
     File.mkdir_p!(Path.dirname(lock_path))
 
-    case :file.open(String.to_charlist(lock_path), [:write, :raw]) do
+    case :prim_file.open(String.to_charlist(lock_path), [:write, :raw]) do
       {:ok, fd} ->
         try do
-          case :file.lock(fd, :exclusive) do
+          case :prim_file.lock(fd, :exclusive, :infinity) do
             :ok ->
               fun.()
             {:error, reason} ->
               raise "Failed to acquire lock: #{inspect(reason)}"
           end
         after
-          :file.unlock(fd)
-          :file.close(fd)
+          :prim_file.unlock(fd)
+          :prim_file.close(fd)
         end
       {:error, reason} ->
         raise "Failed to open lock file: #{inspect(reason)}"
