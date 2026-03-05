@@ -45,21 +45,28 @@ defmodule Cortexa.Workspace do
     lock_path = Path.join(ws.gcc_dir, ".lock")
     File.mkdir_p!(Path.dirname(lock_path))
 
-    case :prim_file.open(String.to_charlist(lock_path), [:write, :raw]) do
+    max_retries = 50
+    retry_delay = 100
+
+    acquire_lock(lock_path, max_retries, retry_delay, fun)
+  end
+
+  defp acquire_lock(_lock_path, 0, _delay, _fun) do
+    raise "Failed to acquire lock: max retries exceeded"
+  end
+
+  defp acquire_lock(lock_path, retries, delay, fun) do
+    case File.open(lock_path, [:exclusive, :write]) do
       {:ok, fd} ->
         try do
-          case :prim_file.lock(fd, :exclusive, :infinity) do
-            :ok ->
-              fun.()
-            {:error, reason} ->
-              raise "Failed to acquire lock: #{inspect(reason)}"
-          end
+          fun.()
         after
-          :prim_file.unlock(fd)
-          :prim_file.close(fd)
+          File.close(fd)
+          File.rm(lock_path)
         end
-      {:error, reason} ->
-        raise "Failed to open lock file: #{inspect(reason)}"
+      {:error, _} ->
+        Process.sleep(delay)
+        acquire_lock(lock_path, retries - 1, delay, fun)
     end
   end
 
