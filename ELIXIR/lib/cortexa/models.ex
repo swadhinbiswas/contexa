@@ -1,8 +1,8 @@
-defmodule Contexa.Models do
+defmodule Cortexa.Models do
   @moduledoc """
-  Data structures for the contexa GCC workspace.
+  Data structures for the cortexa GCC workspace.
 
-  contexa — Git-inspired context management for LLM agents.
+  cortexa — Git-inspired context management for LLM agents.
   Based on arXiv:2508.00031.
   """
 

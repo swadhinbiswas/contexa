@@ -1,8 +1,8 @@
---- contexa — Git-inspired context management for LLM agents
+--- cortexa — Git-inspired context management for LLM agents
 --- COMMIT, BRANCH, MERGE, and CONTEXT operations over a persistent
 --- versioned memory workspace. Based on arXiv:2508.00031.
 ---
---- @module contexa.models
+--- @module cortexa.models
 
 local M = {}
 

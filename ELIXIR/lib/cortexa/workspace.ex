@@ -1,13 +1,13 @@
-defmodule Contexa.Workspace do
+defmodule Cortexa.Workspace do
   @moduledoc """
   GCCWorkspace — persistent versioned memory workspace for LLM agents.
 
-  contexa — Git-inspired context management.
+  cortexa — Git-inspired context management.
   Based on arXiv:2508.00031.
   """
 
-  alias Contexa.Models
-  alias Contexa.Models.{OTARecord, CommitRecord, ContextResult}
+  alias Cortexa.Models
+  alias Cortexa.Models.{OTARecord, CommitRecord, ContextResult}
 
   @main_branch "main"
   @gcc_dir ".GCC"

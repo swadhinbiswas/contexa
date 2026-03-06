@@ -1,6 +1,6 @@
-# Contributing to contexa
+# Contributing to cortexa
 
-Thank you for your interest in contributing to **contexa** — git-inspired context management for LLM agents.
+Thank you for your interest in contributing to **cortexa** — git-inspired context management for LLM agents.
 
 This is a polyglot monorepo with implementations in **Python, JavaScript/TypeScript, Rust, Go, Zig, Lua, and Elixir**. Contributions to any language are welcome.
 
@@ -20,11 +20,11 @@ This project follows the [Contributor Covenant v2.1](CODE_OF_CONDUCT.md). By par
 
 ## Getting Started
 
-1. Fork the repository: <https://github.com/swadhinbiswas/Cortexa>
+1. Fork the repository: <https://github.com/swadhinbiswas/cortexa>
 2. Clone your fork:
    ```bash
-   git clone https://github.com/<your-username>/contexa.git
-   cd contexa
+   git clone https://github.com/<your-username>/cortexa.git
+   cd cortexa
    ```
 3. Create a feature branch:
    ```bash
@@ -131,7 +131,7 @@ CI runs all 7 language test suites on every pull request. Your PR must pass all 
 - **Rust**: Run `cargo fmt` and `cargo clippy` before committing.
 - **Go**: Run `gofmt` and `go vet`.
 - **Zig**: Follow the [Zig style guide](https://ziglang.org/documentation/master/#Style-Guide).
-- **Lua**: Follow the existing style in `LUA/contexa/`.
+- **Lua**: Follow the existing style in `LUA/cortexa/`.
 - **Elixir**: Run `mix format` before committing.
 
 ## Labels
@@ -164,4 +164,4 @@ Issues and PRs are categorized with the following labels:
 
 ---
 
-If you have questions, feel free to [open a discussion](https://github.com/swadhinbiswas/Cortexa/issues/new?template=question.yml) or reach out to [@swadhinbiswas](https://github.com/swadhinbiswas).
+If you have questions, feel free to [open a discussion](https://github.com/swadhinbiswas/cortexa/issues/new?template=question.yml) or reach out to [@swadhinbiswas](https://github.com/swadhinbiswas).

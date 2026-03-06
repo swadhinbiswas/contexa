@@ -1,4 +1,4 @@
-package contexa
+package cortexa
 
 // interop_test.go — Cross-language interoperability tests.
 //

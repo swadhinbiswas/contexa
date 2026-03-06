@@ -227,8 +227,8 @@ jobs:
       - name: Publish to LuaRocks
         env:
           LUAROCKS_API_KEY: ${{ secrets.LUAROCKS_API_KEY }}
-        run: luarocks upload contexa-1.1.2-1.rockspec 
-          --api-key="$LUAROCKS_API_KEY" --replace
+        run: luarocks upload cortexa-1.1.2-1.rockspec 
+          --api-key="$LUAROCKS_API_KEY" --force
 
   # ── Publish Elixir to Hex.pm ────────────────────────────────────────
   publish-elixir:
@@ -296,7 +296,7 @@ jobs:
             echo "| Python   | \`pip install contexa\` |"
             echo "| JS/TS    | \`npm install contexa\` |"
             echo "| Rust     | \`cargo add contexa-gcc\` |"
-            echo "| Go       | \`go get github.com/swadhinbiswas/Cortexa/GO/contexa@GO/$TAG\` |"
+            echo "| Go       | \`go get github.com/swadhinbiswas/cortexa/GO/contexa@GO/$TAG\` |"
             echo "| Lua      | \`luarocks install contexa\` |"
             echo "| Elixir   | \`{:contexa, \"~> 0.1.1\"}\` in mix.exs |"
             echo "| Zig      | Add dependency via \`build.zig.zon\` (see README) |"

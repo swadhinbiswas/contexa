@@ -1,13 +1,13 @@
-# contexa
+# cortexa
 
-[![Crates.io](https://img.shields.io/crates/v/contexa.svg)](https://crates.io/crates/contexa)
-[![docs.rs](https://docs.rs/contexa/badge.svg)](https://docs.rs/contexa)
+[![Crates.io](https://img.shields.io/crates/v/cortexa.svg)](https://crates.io/crates/cortexa)
+[![docs.rs](https://docs.rs/cortexa/badge.svg)](https://docs.rs/cortexa)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![GitHub](https://img.shields.io/badge/GitHub-swadhinbiswas%2FCortexa-black.svg?logo=github)](https://github.com/swadhinbiswas/Cortexa)
 
 **Git-inspired context management for LLM agents.** COMMIT, BRANCH, MERGE, and CONTEXT operations over a persistent versioned memory workspace.
 
-Rust implementation of the **contexa** framework.
+Rust implementation of the **cortexa** framework.
 
 Based on: [arXiv:2508.00031](https://arxiv.org/abs/2508.00031) -- *"Git Context Controller: Manage the Context of LLM-based Agents like Git"* (Junde Wu et al., 2025)
 
@@ -17,7 +17,7 @@ Based on: [arXiv:2508.00031](https://arxiv.org/abs/2508.00031) -- *"Git Context 
 
 ```toml
 [dependencies]
-contexa = "0.1"
+cortexa = "0.1"
 ```
 
 ---
@@ -25,9 +25,9 @@ contexa = "0.1"
 ## Quick Start
 
 ```rust
-use contexa::GCCWorkspace;
+use cortexa::GCCWorkspace;
 
-fn main() -> contexa::Result<()> {
+fn main() -> cortexa::Result<()> {
     let mut ws = GCCWorkspace::new("/path/to/project");
     ws.init("Build a REST API service with user auth")?;
 
@@ -173,7 +173,7 @@ All data is stored as **human-readable Markdown and YAML**.
 
 ```bash
 git clone https://github.com/swadhinbiswas/Cortexa.git
-cd contexa/RUST
+cd cortexa/RUST
 cargo test
 ```
 
@@ -212,7 +212,7 @@ MIT License. See [LICENSE](LICENSE) for details.
 ## Links
 
 - [GitHub Repository](https://github.com/swadhinbiswas/Cortexa)
-- [crates.io](https://crates.io/crates/contexa)
-- [docs.rs](https://docs.rs/contexa)
+- [crates.io](https://crates.io/crates/cortexa)
+- [docs.rs](https://docs.rs/cortexa)
 - [Original Paper](https://arxiv.org/abs/2508.00031)
 - [Author: Swadhin Biswas](https://github.com/swadhinbiswas)

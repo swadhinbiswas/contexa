@@ -1,10 +1,10 @@
---- contexa — Git-inspired context management for LLM agents
+--- cortexa — Git-inspired context management for LLM agents
 --- GCCWorkspace: persistent versioned memory workspace.
 --- Based on arXiv:2508.00031.
 ---
---- @module contexa.workspace
+--- @module cortexa.workspace
 
-local models = require("contexa.models")
+local models = require("cortexa.models")
 local lfs_ok, lfs = pcall(require, "lfs")
 
 local W = {}

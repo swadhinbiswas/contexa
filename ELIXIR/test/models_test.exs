@@ -1,8 +1,8 @@
-defmodule Contexa.ModelsTest do
+defmodule Cortexa.ModelsTest do
   use ExUnit.Case, async: true
 
-  alias Contexa.Models
-  alias Contexa.Models.{OTARecord, CommitRecord, BranchMetadata}
+  alias Cortexa.Models
+  alias Cortexa.Models.{OTARecord, CommitRecord, BranchMetadata}
 
   test "generate_id returns 8 hex chars" do
     id = Models.generate_id()

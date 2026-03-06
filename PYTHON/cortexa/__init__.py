@@ -1,5 +1,5 @@
 """
-contexa — Python implementation of Git-Context-Controller (GCC)
+cortexa — Python implementation of Git-Context-Controller (GCC)
 
 Paper: "Git Context Controller: Manage the Context of LLM-based Agents like Git"
        arXiv:2508.00031v2, Junde Wu et al., 2025

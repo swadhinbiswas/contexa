@@ -1,5 +1,5 @@
 /**
- * Tests for contexa TypeScript package.
+ * Tests for cortexa TypeScript package.
  * Run with: tsx --test test.ts
  */
 

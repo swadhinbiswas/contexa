@@ -1,8 +1,8 @@
---- contexa — package entry point.
---- @module contexa
+--- cortexa — package entry point.
+--- @module cortexa
 
-local models = require("contexa.models")
-local workspace = require("contexa.workspace")
+local models = require("cortexa.models")
+local workspace = require("cortexa.workspace")
 
 return {
     -- Workspace
