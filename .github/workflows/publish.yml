@@ -227,7 +227,8 @@ jobs:
       - name: Publish to LuaRocks
         env:
           LUAROCKS_API_KEY: ${{ secrets.LUAROCKS_API_KEY }}
-        run: luarocks upload contexa-0.1.1-1.rockspec --api-key="$LUAROCKS_API_KEY"
+        run: luarocks upload contexa-1.1.2-1.rockspec 
+          --api-key="$LUAROCKS_API_KEY" --replace
 
   # ── Publish Elixir to Hex.pm ────────────────────────────────────────
   publish-elixir:

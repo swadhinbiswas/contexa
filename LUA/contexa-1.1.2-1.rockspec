@@ -1,10 +1,10 @@
 rockspec_format = "3.0"
 package = "contexa"
-version = "0.1.1-1"
+version = "1.1.2-1"
 
 source = {
     url = "git+https://github.com/swadhinbiswas/Cortexa.git",
-    tag = "v0.1.2",
+    tag = "v1.1.2",
     dir = "LUA",
 }
 

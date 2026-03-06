@@ -1,7 +1,7 @@
-defmodule Cortexa.MixProject do
+defmodule Contexa.MixProject do
   use Mix.Project
 
-  @version "0.1.1"
+  @version "1.1.2"
   @source_url "https://github.com/swadhinbiswas/Cortexa"
 
   def project do

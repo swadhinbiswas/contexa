@@ -1,6 +1,6 @@
 .{
     .name = .contexa,
-    .version = "0.1.2",
+    .version = "1.1.2",
     .fingerprint = 0x8f806195754ffc62,
     .minimum_zig_version = "0.14.0",
     .dependencies = .{},
