@@ -1,7 +1,7 @@
 .{
     .name = .cortexa,
-    .version = "1.1.2",
-    .fingerprint = 0x8f806195754ffc62,
+    .version = "1.1.3",
+    .fingerprint = 0x2a901b16c3e1b691,
     .minimum_zig_version = "0.14.0",
     .dependencies = .{},
     .paths = .{

@@ -59,9 +59,9 @@
     <circle cx="55" cy="125" r="2" fill="#6C63FF" opacity="0.4"/>
   </g>
 
-  <!-- Text: "Cortexa" -->
+  <!-- Text: "Contexa" -->
   <text x="215" y="120" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="72" font-weight="700" fill="url(#textGrad)" letter-spacing="-1">
-    Cortexa
+    Contexa
   </text>
 
   <!-- Tagline -->
