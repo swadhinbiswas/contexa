@@ -5,6 +5,8 @@
 <p align="center">
   <strong>Versioned memory for AI agents</strong><br>
   <em>A brain-inspired context management system based on Git's branching model</em>
+  <br><br>
+  <a href="DOCS/index.html"><img src="https://img.shields.io/badge/Documentation-Web-blue.svg" alt="Web Docs" /></a>
 </p>
 
 <p align="center">
