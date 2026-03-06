@@ -1,5 +1,5 @@
 rockspec_format = "3.0"
-package = "contexa"
+package = "cortexa"
 version = "1.1.2-1"
 
 source = {
@@ -29,8 +29,8 @@ dependencies = {
 build = {
     type = "builtin",
     modules = {
-        ["contexa"]           = "contexa/init.lua",
-        ["contexa.models"]    = "contexa/models.lua",
-        ["contexa.workspace"] = "contexa/workspace.lua",
+        ["cortexa"]           = "cortexa/init.lua",
+        ["cortexa.models"]    = "cortexa/models.lua",
+        ["cortexa.workspace"] = "cortexa/workspace.lua",
     },
 }

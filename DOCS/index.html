@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cortexa - Git-Inspired Context Management for LLM Agents</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --text-muted: #6e7681;
+            --accent-primary: #58a6ff;
+            --accent-secondary: #1f6feb;
+            --accent-purple: #a371f7;
+            --accent-green: #3fb950;
+            --accent-orange: #d29922;
+            --accent-red: #f85149;
+            --border-color: #30363d;
+            --gradient-start: #6366f1;
+            --gradient-end: #8b5cf6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            background: rgba(13, 17, 23, 0.95);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 0;
+            text-align: center;
+            background: radial-gradient(ellipse at top, rgba(99, 102, 241, 0.15) 0%, transparent 50%);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .tagline {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .hero .description {
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.75rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-secondary);
+            border-color: var(--accent-primary);
+        }
+
+        /* Code Block */
+        .code-block {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            text-align: left;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .code-block .comment { color: var(--text-muted); }
+        .code-block .keyword { color: var(--accent-purple); }
+        .code-block .string { color: var(--accent-green); }
+        .code-block .function { color: var(--accent-primary); }
+        .code-block .method { color: var(--accent-orange); }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+            background: var(--bg-secondary);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            font-size: 1.125rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Architecture */
+        .architecture {
+            padding: 5rem 0;
+        }
+
+        .arch-diagram {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 3rem auto;
+            max-width: 900px;
+        }
+
+        .arch-layer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1.25rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .arch-layer.global {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .arch-layer.commit {
+            background: linear-gradient(135deg, rgba(63, 185, 80, 0.2), rgba(46, 160, 67, 0.2));
+            border: 1px solid rgba(63, 185, 80, 0.3);
+        }
+
+        .arch-layer.ota {
+            background: linear-gradient(135deg, rgba(88, 166, 255, 0.2), rgba(31, 111, 235, 0.2));
+            border: 1px solid rgba(88, 166, 255, 0.3);
+        }
+
+        .arch-arrow {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+        }
+
+        /* Languages */
+        .languages {
+            padding: 5rem 0;
+            background: var(--bg-secondary);
+        }
+
+        .lang-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .lang-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .lang-card:hover {
+            border-color: var(--accent-primary);
+            transform: scale(1.05);
+        }
+
+        .lang-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .lang-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Install */
+        .install {
+            padding: 5rem 0;
+        }
+
+        .install-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .install-tab {
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .install-tab.active {
+            background: var(--accent-primary);
+            color: white;
+            border-color: var(--accent-primary);
+        }
+
+        .install-code {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 1rem;
+        }
+
+        .install-code .prompt { color: var(--accent-green); }
+        .install-code .command { color: var(--accent-primary); }
+
+        /* Performance */
+        .performance {
+            padding: 5rem 0;
+            background: var(--bg-secondary);
+        }
+
+        .perf-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .stat-detail {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        footer a {
+            color: var(--accent-primary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero .tagline { font-size: 1.25rem; }
+            .nav-links { display: none; }
+            .features-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <div class="logo-icon">🧠</div>
+                    <span>Cortexa</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#architecture">Architecture</a></li>
+                    <li><a href="#languages">Languages</a></li>
+                    <li><a href="#install">Install</a></li>
+                    <li><a href="#performance">Performance</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1 class="animate-in">Cortexa</h1>
+            <p class="tagline animate-in delay-1">Versioned Memory for AI Agents</p>
+            <p class="description animate-in delay-2">
+                Git-inspired context management for LLM agents. COMMIT, BRANCH, MERGE, and CONTEXT 
+                operations over a persistent versioned memory workspace. Based on the groundbreaking 
+                <strong>Git Context Controller (GCC)</strong> research from arXiv:2508.00031.
+            </p>
+            <div class="cta-buttons animate-in delay-3">
+                <a href="#install" class="btn btn-primary">
+                    📦 Install Now
+                </a>
+                <a href="https://github.com/swadhinbiswas/cortexa" class="btn btn-secondary">
+                    ⭐ GitHub
+                </a>
+            </div>
+
+            <div class="code-block animate-in delay-4">
+                <span class="comment"># Python example - Give your agent memory</span><br>
+                <span class="keyword">from</span> cortexa <span class="keyword">import</span> GCCWorkspace<br><br>
+                ws = GCCWorkspace(<span class="string">"/project"</span>)<br>
+                ws.init(<span class="string">"Build a REST API"</span>)<br>
+                ws.log_ota(<span class="string">"Empty dir"</span>, <span class="string">"Scaffold first"</span>, <span class="string">"create files"</span>)<br>
+                ws.commit(<span class="string">"Scaffolded project"</span>)
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Four Core Operations</h2>
+            <p class="section-subtitle">Inspired by Git, designed for AI agents</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>📝 OTA Logging</h3>
+                    <p>Continuous trace of Observation-Thought-Action cycles. Every decision your agent makes is recorded for context retrieval.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💾</div>
+                    <h3>💾 COMMIT</h3>
+                    <p>Checkpoint milestones with semantic summaries. Compresses older OTA steps into digestible summaries.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌿</div>
+                    <h3>🌿 BRANCH</h3>
+                    <p>Create isolated workspaces to explore alternatives without affecting the main reasoning path.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔀</div>
+                    <h3>🔀 MERGE</h3>
+                    <p>Integrate successful branch experiments back into main. Synthesize divergent reasoning paths.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>🧠 CONTEXT</h3>
+                    <p>Hierarchical memory retrieval. Get exactly the right amount of history with configurable K parameter.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>🔒 File Locking</h3>
+                    <p>Safe concurrent access with OS-level file locks. Multiple agents can work safely on the same workspace.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="architecture" id="architecture">
+        <div class="container">
+            <h2 class="section-title">Three-Tier Memory Hierarchy</h2>
+            <p class="section-subtitle">How GCC structures agent memory</p>
+
+            <div class="arch-diagram">
+                <div class="arch-layer global">
+                    <span>📄 main.md</span> — Global roadmap / planning artifact
+                </div>
+                <div class="arch-arrow">↓</div>
+                <div class="arch-layer commit">
+                    <span>📋 commit.md</span> — Milestone summaries (K commits)
+                </div>
+                <div class="arch-arrow">↓</div>
+                <div class="arch-layer ota">
+                    <span>📜 log.md</span> — Fine-grained OTA traces (all steps)
+                </div>
+            </div>
+
+            <div class="features-grid" style="margin-top: 3rem;">
+                <div class="feature-card">
+                    <h3>🎯 Global Planning</h3>
+                    <p><code>main.md</code> stores the agent's high-level roadmap and goals. Updated on each milestone.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📋 Commit Level</h3>
+                    <p><code>commit.md</code> contains semantic summaries of each milestone. Configurable K for retrieval.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📜 OTA Traces</h3>
+                    <p><code>log.md</code> records every observation, thought, and action. Full reasoning history.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="languages" id="languages">
+        <div class="container">
+            <h2 class="section-title">7 Language Implementations</h2>
+            <p class="section-subtitle">Same .GCC/ format across all languages</p>
+
+            <div class="lang-grid">
+                <div class="lang-card">
+                    <div class="lang-icon">🐍</div>
+                    <div class="lang-name">Python</div>
+                </div>
+                <div class="lang-card">
+                    <div class="lang-icon">📘</div>
+                    <div class="lang-name">JavaScript</div>
+                </div>
+                <div class="lang-card">
+                    <div class="lang-icon">🦀</div>
+                    <div class="lang-name">Rust</div>
+                </div>
+                <div class="lang-card">
+                    <div class="lang-icon">🐹</div>
+                    <div class="lang-name">Go</div>
+                </div>
+                <div class="lang-card">
+                    <div class="lang-icon">⚡</div>
+                    <div class="lang-name">Zig</div>
+                </div>
+                <div class="lang-card">
+                    <div class="lang-icon">🌙</div>
+                    <div class="lang-name">Lua</div>
+                </div>
+                <div class="lang-card">
+                    <div class="lang-icon">💧</div>
+                    <div class="lang-name">Elixir</div>
+                </div>
+            </div>
+
+            <p style="text-align: center; margin-top: 2rem; color: var(--text-secondary);">
+                A workspace created in one language can be read and extended by any other. 
+                Perfect for polyglot agent systems.
+            </p>
+        </div>
+    </section>
+
+    <section class="install" id="install">
+        <div class="container">
+            <h2 class="section-title">Install Cortexa</h2>
+            <p class="section-subtitle">Choose your language</p>
+
+            <div class="install-tabs">
+                <button class="install-tab active" onclick="showInstall('python')">Python</button>
+                <button class="install-tab" onclick="showInstall('js')">JavaScript</button>
+                <button class="install-tab" onclick="showInstall('rust')">Rust</button>
+                <button class="install-tab" onclick="showInstall('go')">Go</button>
+                <button class="install-tab" onclick="showInstall('lua')">Lua</button>
+                <button class="install-tab" onclick="showInstall('elixir')">Elixir</button>
+                <button class="install-tab" onclick="showInstall('zig')">Zig</button>
+            </div>
+
+            <div id="install-python" class="install-code">
+                <span class="prompt">$</span> <span class="command">pip install cortexa</span>
+            </div>
+            <div id="install-js" class="install-code" style="display: none;">
+                <span class="prompt">$</span> <span class="command">npm install cortexa</span>
+            </div>
+            <div id="install-rust" class="install-code" style="display: none;">
+                <span class="prompt">$</span> <span class="command">cargo add cortexa</span>
+            </div>
+            <div id="install-go" class="install-code" style="display: none;">
+                <span class="prompt">$</span> <span class="command">go get github.com/swadhinbiswas/cortexa/GO/cortexa</span>
+            </div>
+            <div id="install-lua" class="install-code" style="display: none;">
+                <span class="prompt">$</span> <span class="command">luarocks install cortexa</span>
+            </div>
+            <div id="install-elixir" class="install-code" style="display: none;">
+                <span class="prompt"># Add to mix.exs:</span><br>
+                <span class="command">{:cortexa, "~> 1.1.3"}</span>
+            </div>
+            <div id="install-zig" class="install-code" style="display: none;">
+                <span class="prompt"># Add to build.zig.zon:</span><br>
+                <span class="command">.dependencies = .{</span><br>
+                <span class="command">    .cortexa = .{.path = "../cortexa"},</span><br>
+                <span class="command">}</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="performance" id="performance">
+        <div class="container">
+            <h2 class="section-title">State-of-the-Art Performance</h2>
+            <p class="section-subtitle">Results from the original GCC paper (arXiv:2508.00031)</p>
+
+            <div class="perf-stats">
+                <div class="stat-card">
+                    <div class="stat-value">80.2%</div>
+                    <div class="stat-label">SWE-Bench Verified</div>
+                    <div class="stat-detail">with Claude 4 Sonnet</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">83.4%</div>
+                    <div class="stat-label">BrowseComp-Plus</div>
+                    <div class="stat-detail">with GPT-5</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">26</div>
+                    <div class="stat-label">Systems Outperformed</div>
+                    <div class="stat-detail">Open and commercial</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">K=1</div>
+                    <div class="stat-label">Optimal History</div>
+                    <div class="stat-detail">Most recent commit works best</div>
+                </div>
+            </div>
+
+            <div class="arch-diagram" style="margin-top: 3rem;">
+                <h3 style="text-align: center; margin-bottom: 1.5rem;">Ablation Study Results</h3>
+                <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                    <div class="arch-layer commit" style="justify-content: space-between;">
+                        <span>RoadMap + COMMIT</span>
+                        <span>69.1%</span>
+                    </div>
+                    <div class="arch-layer commit" style="justify-content: space-between;">
+                        <span>+ Logs + Context</span>
+                        <span>75.3%</span>
+                    </div>
+                    <div class="arch-layer commit" style="justify-content: space-between;">
+                        <span>+ Metadata</span>
+                        <span>77.8%</span>
+                    </div>
+                    <div class="arch-layer commit" style="justify-content: space-between; background: linear-gradient(135deg, rgba(63, 185, 80, 0.3), rgba(46, 160, 67, 0.3));">
+                        <span>+ Branch & Merge</span>
+                        <span style="font-weight: 700;">80.2%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://github.com/swadhinbiswas/cortexa">GitHub</a>
+                <a href="https://arxiv.org/abs/2508.00031">Paper</a>
+                <a href="https://pypi.org/project/cortexa/">PyPI</a>
+                <a href="https://www.npmjs.com/package/cortexa">npm</a>
+                <a href="https://crates.io/crates/cortexa">crates.io</a>
+            </div>
+            <p>© 2025 Cortexa. MIT License.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.875rem;">
+                Based on <a href="https://arxiv.org/abs/2508.00031">Git Context Controller</a> by Junde Wu et al.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function showInstall(lang) {
+            document.querySelectorAll('.install-code').forEach(el => el.style.display = 'none');
+            document.getElementById('install-' + lang).style.display = 'block';
+            document.querySelectorAll('.install-tab').forEach(el => el.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

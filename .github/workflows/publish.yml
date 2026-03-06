@@ -81,7 +81,7 @@ jobs:
           cache-dependency-path: GO/go.sum
       - run: go mod download
       - run: go build ./...
-      - run: go test -v ./contexa/
+      - run: go test -v ./cortexa/
 
   test-zig:
     name: Test Zig
@@ -285,7 +285,7 @@ jobs:
           TAG="${{ steps.version.outputs.version }}"
           {
             echo "notes<<EOF"
-            echo "## contexa $TAG"
+            echo "## cortexa $TAG"
             echo ""
             echo "Git-inspired context management for LLM agents — COMMIT, BRANCH, MERGE, and CONTEXT operations over a persistent versioned memory workspace."
             echo ""
@@ -293,12 +293,12 @@ jobs:
             echo ""
             echo "| Language | Command |"
             echo "|----------|---------|"
-            echo "| Python   | \`pip install contexa\` |"
-            echo "| JS/TS    | \`npm install contexa\` |"
-            echo "| Rust     | \`cargo add contexa-gcc\` |"
-            echo "| Go       | \`go get github.com/swadhinbiswas/cortexa/GO/contexa@GO/$TAG\` |"
-            echo "| Lua      | \`luarocks install contexa\` |"
-            echo "| Elixir   | \`{:contexa, \"~> 0.1.1\"}\` in mix.exs |"
+            echo "| Python   | \`pip install cortexa\` |"
+            echo "| JS/TS    | \`npm install cortexa\` |"
+            echo "| Rust     | \`cargo add cortexa\` |"
+            echo "| Go       | \`go get github.com/swadhinbiswas/cortexa/GO/cortexa@v$TAG\` |"
+            echo "| Lua      | \`luarocks install cortexa\` |"
+            echo "| Elixir   | \`{:cortexa, \"~> 1.1.3\"}\` in mix.exs |"
             echo "| Zig      | Add dependency via \`build.zig.zon\` (see README) |"
             echo ""
             echo "### Changes"
@@ -312,7 +312,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.version.outputs.version }}
-          name: "contexa ${{ steps.version.outputs.version }}"
+          name: "cortexa ${{ steps.version.outputs.version }}"
           body: ${{ steps.notes.outputs.notes }}
           draft: false
           prerelease: ${{ contains(steps.version.outputs.version, '-') }}
